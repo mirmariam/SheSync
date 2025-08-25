@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SheSync - Tracker</title>
+   <!-- Custom CSS -->
+  <link rel="stylesheet" href="tracker.css" />
+  </head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo-with-text">
+      <img src="LOGOO.png" alt="SheSync Logo" />
+      <span class="brand-name">SheSync</span>
+    </div>
+    <nav class="nav-links">
+      <a href="loginHome.html">Home</a>
+      <a href="tracker.html" onclick="openSection('tracker')">Tracker</a>
+      <a href="#nutrition" onclick="openSection('nutrition')">Nutrition</a>
+      <a href="#articles" onclick="openSection('articles')">Articles</a>
+    </nav>
+    <a href="#" id="openLogoutModal" class="logout-link">Logout</a>
+  </header>
+
+  <!-- Logout Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeLogoutModal">&times;</span>
+      <h3>Are you sure you want to log out?</h3>
+      <div class="logout-buttons">
+        <button id="confirmLogout" class="logout-confirm">Yes, Logout</button>
+        <button id="cancelLogout" class="logout-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+ <!-- JavaScript -->
+  <script type="module" src="tracker.js"></script>
+  </body>
+  </html>

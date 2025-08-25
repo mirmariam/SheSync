@@ -1,0 +1,68 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* Body */
+body {
+  background-color: #FFF0F5; /* Pastel pink background */
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FADADD;
+  padding: 20px 40px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-with-text {
+  display: flex;
+  align-items: center;
+}
+
+.logo-with-text img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #E6A4A4; /* SheSync pink */
+  font-family: 'Playfair Display', serif;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #947C7C;
+  font-weight: 600;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.nav-links a:hover {
+  color: #c0392b;
+}
+
+.logout-link {
+  color: #d26a94;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+}
+
+.logout-link:hover {
+  color: #c0392b;
+}
