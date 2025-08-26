@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- testinh -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCOD/PCOS Support</title>
+  <style>
+    /* ----------------- Navbar + Body (yours) ----------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica', sans-serif; }
+    body {
+      background-color: #FFF0F5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #FADADD;
+      padding: 20px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo-with-text { display: flex; align-items: center; }
+    .logo-with-text img { height: 40px; margin-right: 10px; }
+    .brand-name { font-size: 1.75rem; font-weight: 600; color: #E6A4A4; font-family: 'Playfair Display', serif; }
+    .nav-links a { margin: 0 15px; text-decoration: none; color: #947C7C; font-weight: 600; font-family: 'Quicksand', sans-serif; }
+    .nav-links a:hover { color: #c0392b; }
+    .logout-link { color: #d26a94; font-weight: 600; text-decoration: none; font-family: 'Quicksand', sans-serif; cursor: pointer; }
+    .logout-link:hover { color: #c0392b; }
+
+    /* ----------------- Page Layout ----------------- */
+    .pcos-container {
+      display: flex;
+      gap: 30px;
+      padding: 40px;
+      flex: 1;
+    }
+    .left-section, .right-section {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .left-section {
+      flex: 1;
+      min-width: 280px;
+    }
+    .right-section {
+      flex: 2;
+    }
+
+    /* ----------------- Headings ----------------- */
+    h3 {
+      font-size: 1.8rem;
+      color: #d26a94;
+      margin-bottom: 15px;
+      font-family: 'Playfair Display', serif;
+    }
+    h4 {
+      font-size: 1.3rem;
+      margin: 15px 0;
+      color: #b85c7a;
+    }
+    h5 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    /* ----------------- Quiz ----------------- */
+    .quiz-question {
+      margin-bottom: 15px;
+    }
+    .assessment-btn {
+      background-color: #d26a94;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .assessment-btn:hover {
+      background-color: #c0392b;
+    }
+    .risk-result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    /* ----------------- Info Section ----------------- */
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .info-card {
+      background-color: #FADADD;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .info-card ul {
+      padding-left: 20px;
+    }
+
+    /* ----------------- Responsive ----------------- */
+    @media (max-width: 900px) {
+      .pcos-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo-with-text">
+      <img src="LOGOO.png" alt="SheSync Logo" />
+      <span class="brand-name">SheSync</span>
+    </div>
+    <nav class="nav-links">
+      <a href="loginHome.html">Home</a>
+      <a href="tracker.html">Tracker</a>
+      <a href="nutrition.html">Nutrition</a>
+      <a href="articles.html">Articles</a>
+      <a href="pcos.html">PCOD/PCOS</a>
+    </nav>
+    <a href="#" id="openLogoutModal" class="logout-link">Logout</a>
+  </header>
+
+  <!-- PCOS Content -->
+  <div class="pcos-container">
+    <!-- Left Section -->
+    <div class="left-section">
+      <h3>PCOD/PCOS Support & Insights</h3>
+      <div class="risk-assessment">
+        <h4>Risk Assessment Quiz</h4>
+        <div class="quiz-question">
+          <p>Do you experience irregular periods (cycles longer than 35 days or shorter than 21 days)?</p>
+          <label><input type="radio" name="q1" value="yes"> Yes</label>
+          <label><input type="radio" name="q1" value="no"> No</label>
+        </div>
+        <div class="quiz-question">
+          <p>Do you have excessive hair growth on face, chest, or back?</p>
+          <label><input type="radio" name="q2" value="yes"> Yes</label>
+          <label><input type="radio" name="q2" value="no"> No</label>
+        </div>
+        <div class="quiz-question">
+          <p>Do you struggle with weight gain or difficulty losing weight?</p>
+          <label><input type="radio" name="q3" value="yes"> Yes</label>
+          <label><input type="radio" name="q3" value="no"> No</label>
+        </div>
+        <div class="quiz-question">
+          <p>Do you experience severe acne or oily skin?</p>
+          <label><input type="radio" name="q4" value="yes"> Yes</label>
+          <label><input type="radio" name="q4" value="no"> No</label>
+        </div>
+        <button onclick="calculatePCOSRisk()" class="assessment-btn">Get Assessment</button>
+        <div id="riskResult" class="risk-result"></div>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <h3>Understanding PCOS/PCOD</h3>
+      <div class="info-cards">
+        <div class="info-card">
+          <h5>What is PCOS?</h5>
+          <p>Polycystic Ovary Syndrome is a hormonal disorder affecting reproductive-aged women, characterized by irregular periods, excess male hormones, and polycystic ovaries.</p>
+        </div>
+        <div class="info-card">
+          <h5>Management Tips</h5>
+          <ul>
+            <li>Maintain a healthy weight</li>
+            <li>Exercise regularly (30 mins daily)</li>
+            <li>Follow a balanced, low-glycemic diet</li>
+            <li>Manage stress through meditation</li>
+            <li>Get adequate sleep (7-8 hours)</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h5>When to See a Doctor</h5>
+          <p>Consult a healthcare provider if you experience irregular periods for more than 3 months, excessive hair growth, severe acne, or difficulty conceiving.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculatePCOSRisk() {
+      let yesCount = 0;
+      for (let i = 1; i <= 4; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer && answer.value === "yes") yesCount++;
+      }
+      let result = "";
+      if (yesCount >= 3) result = "High risk of PCOS. Please consult a doctor.";
+      else if (yesCount === 2) result = "Moderate risk. Consider medical advice.";
+      else result = "Low risk. Maintain a healthy lifestyle.";
+      document.getElementById("riskResult").innerText = result;
+    }
+  </script>
+</body>
+</html>
