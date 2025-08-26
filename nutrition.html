@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cycle Synced Nutrition</title>
+  <style>
+    /* ----------------- Navbar + Body (yours) ----------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica', sans-serif; }
+    body {
+      background-color: #FFF0F5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #FADADD;
+      padding: 20px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo-with-text { display: flex; align-items: center; }
+    .logo-with-text img { height: 40px; margin-right: 10px; }
+    .brand-name { font-size: 1.75rem; font-weight: 600; color: #E6A4A4; font-family: 'Playfair Display', serif; }
+    .nav-links a { margin: 0 15px; text-decoration: none; color: #947C7C; font-weight: 600; font-family: 'Quicksand', sans-serif; }
+    .nav-links a:hover { color: #c0392b; }
+    .logout-link { color: #d26a94; font-weight: 600; text-decoration: none; font-family: 'Quicksand', sans-serif; cursor: pointer; }
+    .logout-link:hover { color: #c0392b; }
+
+    /* ----------------- Cards Layout (bigger + no stretch) ----------------- */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(520px, 1fr)); /* larger cards, 2 per row */
+      gap: 32px;
+      padding: 40px 24px;
+      max-width: 1300px;            /* spreads wider across page */
+      margin: 40px auto;
+      align-items: start;            /* <-- prevent vertical stretch causing “blank opens” */
+    }
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card-header {
+      background-color: #FADADD;    /* keep your color */
+      color: #d26a94;               /* keep your color */
+      padding: 20px 24px;           /* a touch roomier */
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;              /* header is clickable */
+    }
+    .card-content {
+      display: none;
+      padding: 20px 24px;
+      background: #fff;
+      animation: fadeIn 0.4s ease;
+    }
+    .card.active .card-content { display: block; }
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
+    .card-content ul { margin-left: 20px; }
+
+    /* ----------------- Water Tracker (unchanged look) ----------------- */
+    .hydration-tracker {
+      margin: 40px auto;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .hydration-tracker h4 { color: #d26a94; margin-bottom: 15px; }
+    .water-counter { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 10px; }
+    .water-counter button {
+      padding: 10px 15px; border: none; border-radius: 8px;
+      background: #FADADD; cursor: pointer; font-weight: bold; color: #d26a94;
+    }
+    .water-counter button:hover { background: #f4c0c7; }
+    #waterCount { font-weight: bold; color: #333; }
+
+    /* Small screens: stack cards */
+    @media (max-width: 1100px) {
+      .cards-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo-with-text">
+      <img src="LOGOO.png" alt="SheSync Logo" />
+      <span class="brand-name">SheSync</span>
+    </div>
+    <nav class="nav-links">
+      <a href="loginHome.html">Home</a>
+      <a href="tracker.html">Tracker</a>
+      <a href="nutrition.html">Nutrition</a>
+      <a href="articles.html">Articles</a>
+    <a href="pcod.html" onclick="openSection('pcos')">PCOD/PCOS</a> 
+    </nav>
+    <a href="#" id="openLogoutModal" class="logout-link">Logout</a>
+  </header>
+
+  <!-- Cards -->
+  <div class="cards-container">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🩸 Menstrual Phase</div>
+      <div class="card-content">
+        <p><strong>Focus on:</strong> Iron-rich foods, anti-inflammatory foods</p>
+        <ul>
+          <li>Leafy greens (spinach, kale)</li>
+          <li>Red meat, lentils, quinoa</li>
+          <li>Dark chocolate (70%+ cacao)</li>
+          <li>Ginger tea for cramps</li>
+          <li>Turmeric for inflammation</li>
+        </ul>
+        <p><strong>Avoid:</strong> Processed foods, excessive caffeine, alcohol</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🌱 Follicular Phase</div>
+      <div class="card-content">
+        <p><strong>Focus on:</strong> Fresh, light foods to support rising energy</p>
+        <ul>
+          <li>Fresh fruits and vegetables</li>
+          <li>Fermented foods (kimchi, yogurt)</li>
+          <li>Lean proteins (fish, chicken)</li>
+          <li>Sprouted seeds and grains</li>
+          <li>Green tea</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🥚 Ovulatory Phase</div>
+      <div class="card-content">
+        <p><strong>Focus on:</strong> Antioxidant-rich foods, fiber</p>
+        <ul>
+          <li>Berries and citrus fruits</li>
+          <li>Colorful vegetables</li>
+          <li>Whole grains</li>
+          <li>Coconut and avocado</li>
+          <li>Herbal teas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🌙 Luteal Phase</div>
+      <div class="card-content">
+        <p><strong>Focus on:</strong> Magnesium, B-vitamins, complex carbs</p>
+        <ul>
+          <li>Magnesium-rich foods (pumpkin seeds, almonds)</li>
+          <li>Complex carbohydrates (sweet potato, oats)</li>
+          <li>Calcium sources (dairy, sesame seeds)</li>
+          <li>Mood-supporting foods (bananas, turkey)</li>
+          <li>Chamomile tea for PMS</li>
+        </ul>
+        <p><strong>Limit:</strong> Salt, sugar, caffeine to reduce PMS symptoms</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hydration Tracker -->
+  <div class="hydration-tracker">
+    <h4>💧 Daily Water Intake</h4>
+    <p>Track your daily water consumption (aim for 8–10 glasses)</p>
+    <div class="water-counter">
+      <button onclick="addWaterGlass()">+ Add Glass</button>
+      <span id="waterCount">0</span> / 8 glasses
+      <button onclick="resetWaterCount()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    // Only one card opens; others stay closed.
+    function toggleCard(headerEl) {
+      const card = headerEl.closest('.card');
+      document.querySelectorAll('.card').forEach(c => {
+        if (c !== card) c.classList.remove('active');
+      });
+      card.classList.toggle('active');
+    }
+
+    // Water tracker
+    let waterCount = 0;
+    function addWaterGlass() {
+      if (waterCount < 8) {
+        waterCount++;
+        document.getElementById('waterCount').innerText = waterCount;
+      }
+    }
+    function resetWaterCount() {
+      waterCount = 0;
+      document.getElementById('waterCount').innerText = waterCount;
+    }
+  </script>
+</body>
+</html>

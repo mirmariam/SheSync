@@ -3,10 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SheSync - Tracker</title>
-   <!-- Custom CSS -->
-  <link rel="stylesheet" href="tracker.css" />
-  </head>
+  <title>SheSync - Symptom Tracker</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    /* Body */
+    body {
+      background-color: #FFF0F5; /* Pastel pink background */
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      margin:0%;
+      
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #FADADD;
+      padding: 20px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-with-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-with-text img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .brand-name {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #E6A4A4; /* SheSync pink */
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #947C7C;
+      font-weight: 600;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .nav-links a:hover {
+      color: #c0392b;
+    }
+
+    .logout-link {
+      color: #d26a94;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: 'Quicksand', sans-serif;
+      cursor: pointer;
+    }
+
+    .logout-link:hover {
+      color: #c0392b;
+    }
+
+    /* Center Container */
+   .container {
+  background: linear-gradient(145deg, #fff0f7, #ffd6e8);
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  border: 1px solid #f5c6d6;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  margin: 40px auto ;  /* ensures centering */
+}
+    h2 {
+      color: #b94d6f;
+      margin-bottom: 10px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    h3 {
+      color: #d45d79;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .custom-checkbox:hover {
+      background-color: #ffe0ec;
+    }
+
+    .custom-checkbox input {
+      display: none;
+    }
+
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #f48c8c;
+      background-color: #ffe4ec;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    input:checked + .checkmark {
+      background-color: #f48c8c;
+    }
+
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+
+    input:checked + .checkmark::after {
+      opacity: 1;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #f48c8c;
+      border: none;
+      color: rgb(8, 8, 8);
+      padding: 10px 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e1707e;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 15px;
+    }
+  </style>
+</head>
 <body>
 
   <!-- Navbar -->
@@ -17,26 +205,115 @@
     </div>
     <nav class="nav-links">
       <a href="loginHome.html">Home</a>
-      <a href="tracker.html" onclick="openSection('tracker')">Tracker</a>
-      <a href="#nutrition" onclick="openSection('nutrition')">Nutrition</a>
-      <a href="#articles" onclick="openSection('articles')">Articles</a>
+      <a href="tracker.html">Tracker</a>
+      <a href="nutrition.html">Nutrition</a>
+      <a href="articles.html">Articles</a>
+       <a href="pcod.html" onclick="openSection('pcos')">PCOD/PCOS</a> 
     </nav>
     <a href="#" id="openLogoutModal" class="logout-link">Logout</a>
   </header>
 
-  <!-- Logout Modal -->
-  <div id="logoutModal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeLogoutModal">&times;</span>
-      <h3>Are you sure you want to log out?</h3>
-      <div class="logout-buttons">
-        <button id="confirmLogout" class="logout-confirm">Yes, Logout</button>
-        <button id="cancelLogout" class="logout-cancel">Cancel</button>
-      </div>
-    </div>
+  <!-- Content Container -->
+  <div class="container">
+    <h2>📋 Daily Symptom Tracker</h2>
+    <p>Select the symptoms you’re experiencing today:</p>
+
+    <form id="trackerForm">
+      <!-- Physical Symptoms -->
+      <h3>Physical Symptoms</h3>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Cramps">
+        <span class="checkmark"></span>
+        Cramps
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Bloating">
+        <span class="checkmark"></span>
+        Bloating
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Headache">
+        <span class="checkmark"></span>
+        Headache
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Fatigue">
+        <span class="checkmark"></span>
+        Fatigue
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Back Pain">
+        <span class="checkmark"></span>
+        Back Pain
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Acne/Skin Issues">
+        <span class="checkmark"></span>
+        Acne / Skin Issues
+      </label>
+
+      <!-- Mood & Energy -->
+      <h3>Mood & Energy</h3>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Irritability">
+        <span class="checkmark"></span>
+        Irritability
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Anxiety">
+        <span class="checkmark"></span>
+        Anxiety
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Low Mood">
+        <span class="checkmark"></span>
+        Low Mood
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="High Energy">
+        <span class="checkmark"></span>
+        High Energy
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="symptom" value="Drowsiness">
+        <span class="checkmark"></span>
+        Drowsiness
+      </label>
+
+      <!-- Flow Intensity -->
+      <h3>Flow Intensity</h3>
+      <select id="flowIntensity">
+        <option value="">Select Flow</option>
+        <option value="None">No Flow</option>
+        <option value="Spotting">Spotting</option>
+        <option value="Light">Light</option>
+        <option value="Medium">Medium</option>
+        <option value="Heavy">Heavy</option>
+      </select>
+
+      <button type="button" onclick="saveSymptoms()">💾 Save Today's Data</button>
+    </form>
+
+    <div id="result"></div>
   </div>
 
- <!-- JavaScript -->
+  <script>
+    function saveSymptoms() {
+      const checkedSymptoms = document.querySelectorAll('input[name="symptom"]:checked');
+      const symptoms = Array.from(checkedSymptoms).map(cb => cb.value);
+      const flow = document.getElementById("flowIntensity").value || "Not selected";
+
+      let resultText = `
+        <h4>✅ Today's Record</h4>
+        <p><strong>Symptoms:</strong> ${symptoms.length ? symptoms.join(", ") : "None selected"}</p>
+        <p><strong>Flow Intensity:</strong> ${flow}</p>
+      `;
+
+      document.getElementById("result").innerHTML = resultText;
+    }
+  </script>
+   <!-- JavaScript -->
   <script type="module" src="tracker.js"></script>
-  </body>
-  </html>
+
+</body>
+</html>
